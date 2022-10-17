@@ -1,0 +1,174 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root { /* ideal para projetos grandes, pois caso precise fazer uma alteração geral, a alteração é feita apenas no root */
+  --ff-heading: 'Epilogue', sans-serif; /* font-family do heading (todos os cabeçalhos) */
+  --ff-texting: 'Open Sans', sans-serif;
+  --hue: 325; /* hue é o h do hsl (forma de utilizar cores) caso eu faça alterações aqui, ele mudará a cor de todo o projeto automaticamente, 
+    o que torna muito interessante a utilização dessa ferramenta */
+  --bg-primary: hsl(var(--hue), 22%, 20%); /* background-color */ 
+  /* h:hue s:saturation (horizontalmente - se quiser a cor mais forte ou fraca) l:lightness(verticalmente - se quiser a cor mais clara ou escura) */
+  --fc-primary: hsl(var(--hue), 0%, 100%); /* font-color */
+  --fc-secondary: hsl(var(--hue), 50%, 80%); /* font-color */
+  --fc-secondary-dark: hsl(var(--hue), 100%, 11%);
+  font-size: 62.5%; /* font-size RESET */
+  --fs-body: 1.6rem; /* font-size */
+  --fs-heading: clamp(4rem, 1rem + 5vw, 5.6rem); /* mínimo > ideial(1rem + 5 porções do viewport-width) > máximo */
+  --fs-heading-sm: clamp(3rem, 0.5rem + 3vw, 4rem);/* font-size-heading-small */
+}
+
+body {
+  font-family: var(--ff-texting);
+  background-color: var(--bg-primary);
+  color: var(--fc-primary);
+  font-size: var(--fs-body);
+}
+
+.page {
+  max-width: clamp(33rem, 30rem + 60vw, 117rem);
+  padding: 0 5rem;
+  margin: 0 auto;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+header {
+  margin: 10rem 0 8rem;
+  font-family: var(--ff-heading);
+  text-align: center;
+  animation-name: topdown;
+  animation-duration: 0.7s;
+  /* animation-fill-mode: forwards; essa propriedade é para que a animação termine no 100% */
+  /* por padrão, sem essa propriedade, a animação volta para o estado original, ou seja, para opacity 1 e translatey 0 */
+  /* animation-direction: reverse; */
+  /* animation-delay 0.2s; demoraria 0.2s para iniciar a animação */
+  /* animation-iteration-count: infinite; para repetir a animação em loop infinito */
+  /* animation-play-state: paused; feita para usar com um hover (igual abaixo) */ 
+}
+
+/*header:hover {
+  animation-play-state: running;
+} a animação irá pausar EXATAMENTE no momento em que eu tirar o mouse de cima */
+
+header p {
+  color: var(--fc-secondary);
+  text-transform: uppercase; /* colocar tudo em letra maiúscula */
+  line-height: 3.2rem;
+  letter-spacing: 3px;
+  font-weight: 400;
+  margin-bottom: 1.7rem;
+}
+
+header h1 {
+  font-weight: 800;
+  font-size: var(--fs-heading);
+  line-height: 4.8rem;
+}
+
+main {
+  display: grid;
+  gap: 3.2rem;
+  animation: downtop 0.7s 0.35s reverse backwards; /* backwards é para iniciar no estado 100%, para depois ir para o 0% */
+}
+
+.card {
+  position: relative;
+  font-family: var(--ff-heading);
+}
+
+.card img {
+  height: 41.6rem;
+  filter: brightness(0.5);
+  object-fit: cover; /* encaixar o objeto */
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.card img:hover {
+  transform: scale(1.1);
+  filter: brightness(1);
+}
+
+.card h2 {
+  position: absolute;
+  bottom: 5.2rem;
+  left: 2.3rem;
+  font-size: var(--ff-heading-sm);
+  font-weight: 800;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  gap: 2.8rem;
+  
+}
+
+.card h2 span {
+  border-radius: 2rem;
+  background-color: var(--fc-primary);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  color: var(--fc-secondary-dark);
+  padding: 0 1.6rem;
+  width: fit-content;
+  height: 3.8rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+@keyframes topdown {
+  0% {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes downtop {
+  100% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+}
+
+@media (min-width: 740px) { 
+  /*.page {
+    max-width: 117rem;
+    padding: 0 5rem;
+  }*/
+
+  main {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 940px) {
+  main {
+    grid-template-areas: "A B B"
+    "C C D";
+  }
+
+  main div:nth-child(1) {
+    grid-area: A;
+  }
+
+  main div:nth-child(2) {
+    grid-area: B;
+  }
+  main div:nth-child(3) {
+    grid-area: C;
+  }
+
+  main div:nth-child(4) {
+    grid-area: D;
+  }
+}
